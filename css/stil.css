@@ -1,0 +1,54 @@
+.s-select {
+    cursor: pointer;
+}
+
+
+@media (min-width: 250px) {
+  .arama {
+    width: 200px !important;
+  }
+}
+
+@media (min-width: 250px) {
+  .tip {
+    width: 100px !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .arama {
+    width: 200px !important;
+  }
+}
+@media (min-width: 992px) {
+  .arama {
+    width: 650px !important
+  }
+}
+@media (min-width: 1200px) {
+  .arama {
+    width: 650px !important
+  }
+}
+
+@media (min-width: 250px) {
+  .menuara {
+    width: 100px !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .menuara {
+    width: 200px !important
+  }
+}
+@media (min-width: 992px) {
+  .menuara {
+    width: 200px !important
+  }
+}
+@media (min-width: 1200px) {
+  .menuara {
+    width: 200px !important
+  }
+}
