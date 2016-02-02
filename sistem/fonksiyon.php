@@ -8,7 +8,8 @@ $siteurl          = "http://kodizyon.com";
 $siteadi          = "Kodizyon.com";
 $Facebook_Link    = "kodizyon"; //facebook.com eklemeyin.
 $Twitter_Link     = "kodizyon"; //twitter.com  eklemeyin.
-
+$siteaciklama     = "Birbirinden ünlü şarkıların sözleri burada.";
+$siteetiket       = "Sarki,Sozleri,Burada,Sarkici,";
 
 //Site Ayarları
 
@@ -208,6 +209,3 @@ else
 }
 }
 ?>
-
-
-

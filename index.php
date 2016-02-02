@@ -1,7 +1,9 @@
 <?php
 require_once('Sistem/fonksiyon.php');
 ?>
-
+<?php  
+session_start();
+?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
 </script>
 <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
@@ -12,9 +14,11 @@ require_once('Sistem/fonksiyon.php');
     <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title><?php echo $siteadi ?></title>
+
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/stil.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
 
     <?php require_once('Sistem/db.php'); ?>
 
@@ -337,8 +341,7 @@ else
     else
     {
       if(get('sarki'))
-          {
-
+          {        
 //MYSQL
 $SarkiIcerik = mysql_query("SELECT * from ".$onek."sarki where sarki_id='".get('sarki')."'");
 
@@ -346,18 +349,35 @@ if(mysql_num_rows($SarkiIcerik)!=0)
 {
 while($Getir = mysql_fetch_assoc($SarkiIcerik))
 {
+//Selim Ertürk'e Teşekkür ederim. :)
+$goruntulenen_sarki_id = get('sarki');
+if(!isset($_SESSION['sarki_'.$goruntulenen_sarki_id])){
+$_SESSION['sarki_'.$goruntulenen_sarki_id] = true;
+
+$Getir['sarki_goruntulenme'] ++;
+mysql_query("UPDATE ".$onek."sarki SET sarki_goruntulenme=".$Getir['sarki_goruntulenme']." where sarki_id='".get('sarki')."'");
+}
 ?>
+
+
+
+
+
 <div class="container">
 <h4 class="text-center">
 <?php echo $Getir['sarki_sarkici']; ?> - <?php echo $Getir['sarki_adi']; ?>
 </h4>
-<h5 class="text-center">
-<small><b><?php echo $Getir['sarki_ekleyen']; ?></b> tarafından <b><?php echo timeConvert($Getir['sarki_tarih']); ?></b> oluşturuldu</small>
-</h5>
+<h4 class="text-center">
+<small>
+<i class="fa fa-eye"></i> <?php echo $Getir['sarki_goruntulenme']; ?> Görüntülenme <br>
+<i class="fa fa-clock-o"></i> <?php echo timeConvert($Getir['sarki_tarih']); ?> <br>
+<i class="fa fa-user"></i> <?php echo $Getir['sarki_ekleyen']; ?> <br>
+</small>
+</h4>
 <div class="col-md-3" style="display: block;"></div>
 <div class="col-md-8" style="display: block;">
 
-            <?php
+<?php
 if($Getir['sarki_link'])
 {
               YoutubeResim($Getir['sarki_link']);
@@ -366,12 +386,14 @@ if($Getir['sarki_link'])
               <?php
               YoutubeVideo($Getir['sarki_link']);
 ?>
-<br>
+</div>
+</div>
 <?php
 }
 else
 {
   echo '<br>';
+
 }
 ?>
 <div class="col-md-3" style="display: block;"></div>
@@ -379,13 +401,67 @@ else
   <?php
       echo $Getir['sarki_icerik'];
             ?>
+            <br>
+            <br>
+
+<?php
+//Rastgele RENK oluşturduk
+$Renk_Kodu=array("pink","yellow","purple");
+$Renk_Karistir =mt_rand(0,2);
+
+?>
+
+<!-- ETIKET -->
+
+
+<title><?php echo $Getir['sarki_sarkici']; ?> - <?php echo $Getir['sarki_adi']; ?>  | <?php echo $siteadi; ?> </title>
+<meta name="application-name" content="<?php echo $siteadi; ?>" />
+<meta name="author" content="<?php echo $Getir['sarki_ekleyen']; ?>" />
+<meta name="robots" content="All" />
+<meta name="description" content="<?php echo $Getir['sarki_aciklama']; ?>" />
+<meta name="keywords" content="<?php echo $Getir['sarki_anahtar']; ?>" />
+<meta name="rating" content="General" />
+<meta name="dcterms.title" content="<?php echo $Getir['sarki_sarkici']; ?> - <?php echo $Getir['sarki_adi']; ?>  | <?php echo $siteadi; ?>" />
+<meta name="dcterms.contributor" content="<?php echo $Getir['sarki_ekleyen']; ?>" />
+<meta name="dcterms.creator" content="<?php echo $Getir['sarki_sarkici']; ?> - <?php echo $Getir['sarki_adi']; ?>  | <?php echo $siteadi; ?>" />
+<meta name="dcterms.publisher" content="<?php echo $Getir['sarki_sarkici']; ?> - <?php echo $Getir['sarki_adi']; ?>  | <?php echo $siteadi; ?>" />
+<meta name="dcterms.description" content="<?php echo $Getir['sarki_aciklama']; ?>" />
+<meta name="dcterms.rights" content="<?php echo $Getir['sarki_sarkici']; ?> - <?php echo $Getir['sarki_adi']; ?>  | <?php echo $siteadi; ?>" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="<?php echo $Getir['sarki_sarkici']; ?> - <?php echo $Getir['sarki_adi']; ?>  | <?php echo $siteadi; ?>" />
+<meta property="og:description" content="<?php echo $Getir['sarki_aciklama']; ?>" />
+<meta property="twitter:title" content="<?php echo $Getir['sarki_sarkici']; ?> - <?php echo $Getir['sarki_adi']; ?>  | <?php echo $siteadi; ?>" />
+<meta property="twitter:description" content="<?php echo $Getir['sarki_aciklama']; ?>" />
+
+
+
+<!-- ETIKET -->
+
+
+
  </div> </div>
 
           </div>
+
         </div>
+
       </div>
-          <?php
+
+<div class="container">
+Etiketler:
+<?php
+$kelimeler = explode(",",$Getir['sarki_anahtar']); 
+foreach ($kelimeler as $anahtar=>$deger) { 
+?>
+<span class="label label-large label-<?php echo "$Renk_Kodu[$Renk_Karistir]"; ?> arrowed-in-right arrowed-in"><?php echo $deger ?></span>
+<?php
+} 
+?> 
+</div>
+<?php
 }
+
+
 }
 else
 {
@@ -449,6 +525,31 @@ else
       </div>
     </div>
     <!-- Footer -->
+
+
+<!-- ETIKET -->
+
+<title><?php echo $siteadi; ?></title>
+<meta name="application-name" content="<?php echo $siteadi; ?>" />
+<meta name="author" content="<?php echo $siteadi; ?>" />
+<meta name="robots" content="All" />
+<meta name="description" content="<?php echo $siteaciklama; ?>" />
+<meta name="keywords" content="<?php echo $siteetiket; ?>" />
+<meta name="rating" content="General" />
+<meta name="dcterms.title" content="<?php echo $siteadi; ?>" />
+<meta name="dcterms.contributor" content="<?php echo $siteadi; ?>" />
+<meta name="dcterms.creator" content="<?php echo $siteadi; ?>" />
+<meta name="dcterms.publisher" content="<?php echo $siteadi; ?>" />
+<meta name="dcterms.description" content="<?php echo $siteaciklama; ?>" />
+<meta name="dcterms.rights" content="<?php echo $siteadi; ?>" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="<?php echo $siteadi; ?>" />
+<meta property="og:description" content="<?php echo $siteaciklama; ?>" />
+<meta property="twitter:title" content="<?php echo $siteadi; ?>" />
+<meta property="twitter:description" content="<?php echo $siteaciklama; ?>" />
+
+
+<!-- ETIKET BITIŞ -->
 
 </body></html>
 

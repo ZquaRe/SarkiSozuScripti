@@ -1,3 +1,29 @@
+<?php require_once('Sistem/fonksiyon.php'); ?>
+
+<!-- ETIKET -->
+
+<title><?php echo $siteadi; ?></title>
+<meta name="application-name" content="<?php echo $siteadi; ?>" />
+<meta name="author" content="<?php echo $siteadi; ?>" />
+<meta name="robots" content="All" />
+<meta name="description" content="<?php echo $siteaciklama; ?>" />
+<meta name="keywords" content="<?php echo $siteetiket; ?>" />
+<meta name="rating" content="General" />
+<meta name="dcterms.title" content="<?php echo $siteadi; ?>" />
+<meta name="dcterms.contributor" content="<?php echo $siteadi; ?>" />
+<meta name="dcterms.creator" content="<?php echo $siteadi; ?>" />
+<meta name="dcterms.publisher" content="<?php echo $siteadi; ?>" />
+<meta name="dcterms.description" content="<?php echo $siteaciklama; ?>" />
+<meta name="dcterms.rights" content="<?php echo $siteadi; ?>" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="<?php echo $siteadi; ?>" />
+<meta property="og:description" content="<?php echo $siteaciklama; ?>" />
+<meta property="twitter:title" content="<?php echo $siteadi; ?>" />
+<meta property="twitter:description" content="<?php echo $siteaciklama; ?>" />
+
+
+<!-- ETIKET BITIŞ -->
+
 <br>
     <div class="container">
       <div class="row">
